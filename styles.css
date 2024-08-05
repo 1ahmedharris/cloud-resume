@@ -1,3 +1,39 @@
-p {
-  color: red;
+header {
+    text-align: center; /* This ensures the header content is centered */
 }
+
+
+.large {
+    font-size: 31px;
+}
+.medium {
+    font-size: 25px;
+}
+.small {
+    font-size: 21px;
+}
+
+
+h1 {
+	text-align: center;
+	width: 100%;
+  margin: 0; /* Remove default margin */
+	padding: 0;
+  background-color: #f0f0f0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+
+body {
+	width: 60%;
+  margin: 50px auto;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+
+
+
+
+
+
