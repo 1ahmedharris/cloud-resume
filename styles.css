@@ -14,21 +14,26 @@ header {
 }
 
 
+html {
+  background-color: #fffaf0;
+}
+
 h1 {
 	text-align: center;
 	width: 100%;
-  margin: 0; /* Remove default margin */
-	padding: 0;
-  background-color: #f0f0f0;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    margin: 0; /* Remove default margin */
+	line-height: 1;
+	padding: 23px 0 23px 0;
+    background-color: #808000;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 
 body {
-	width: 60%;
-  margin: 50px auto;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+	width: 85%;
+    margin: 50px auto;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 
@@ -36,4 +41,6 @@ body {
 
 
 
+
+ś
 
