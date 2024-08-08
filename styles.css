@@ -17,7 +17,7 @@ header {
 
 
 html {
-  background-color: #fffaf0;
+  background-color: light gray;
 }
 
 h1 {
@@ -56,11 +56,11 @@ h2 {
 }
 
 
-
-
-
-
-
-
+.check::before {
+    content: "✔"; /* Adds the check mark */
+    color: black; /* Sets the color of the check mark */
+    margin-left: 18px; /* Adds space before the check mark */
+    margin-right: 6px; /*Adds space after the check mark */
+}
 
 
