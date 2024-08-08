@@ -48,6 +48,16 @@ main {
 	padding-right: 16px;
 }
 
+h2 {
+	line-height: 0;
+	font-size: 25px;
+	font: Impact [sans-serif];
+    font-weight: 540;
+}
+
+
+
+
 
 
 
