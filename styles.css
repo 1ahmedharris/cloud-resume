@@ -57,10 +57,15 @@ h2 {
 
 
 .check::before {
-    content: "✔"; /* Adds the check mark */
+    content: "✓"; /* Adds the check mark */
+    font-weight: 625;
     color: black; /* Sets the color of the check mark */
     margin-left: 18px; /* Adds space before the check mark */
     margin-right: 6px; /*Adds space after the check mark */
+    font-family: Arial, sans-serif; 
 }
+
+
+
 
 
