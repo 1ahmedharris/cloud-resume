@@ -1,0 +1,132 @@
+
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "location": {
+      "type": "string",
+      "defaultValue": "eastus",
+      "metadata": {
+        "description": "Location for all resources"
+      }
+    },
+    "resourcePrefix": {
+      "type": "string",
+      "defaultValue": "myresume",
+      "metadata": {
+        "description": "Prefix for resource names"
+      }
+    }
+  },
+  "resources": [
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2021-04-01",
+      "name": "storageDeployment",
+      "dependsOn": [],
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "<link to storage template URL>",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+          "storageAccountName": { "value": "[concat(parameters('resourcePrefix'), 'storage')]" },
+          "location": { "value": "[parameters('location')]" }
+        }
+      }
+    },
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2021-04-01",
+      "name": "cosmosDbDeployment",
+      "dependsOn": [ "storageDeployment" ],
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "<link to cosmos DB template URL>",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+          "cosmosDbName": { "value": "[concat(parameters('resourcePrefix'), 'cosmosdb')]" },
+          "location": { "value": "[parameters('location')]" }
+        }
+      }
+    },
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2021-04-01",
+      "name": "cdnDeployment",
+      "dependsOn": [ "storageDeployment" ],
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "<link to CDN template URL>",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+          "cdnProfileName": { "value": "[concat(parameters('resourcePrefix'), 'cdn')]" },
+          "location": { "value": "[parameters('location')]" }
+        }
+      }
+    },
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2021-04-01",
+      "name": "dnsDeployment",
+      "dependsOn": [ "cdnDeployment" ],
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "<link to your template URL>",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+          "dnsZoneName": { "value": "[concat(parameters('resourcePrefix'), '.com')]" },
+          "location": { "value": "[parameters('location')]" }
+        }
+      }
+    },
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2021-04-01",
+      "name": "functionAppDeployment",
+      "dependsOn": [ "cosmosDbDeployment", "storageDeployment" ],
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "<link to function app template URL>",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+          "functionAppName": { "value": "[concat(parameters('resourcePrefix'), 'func')]" },
+          "cosmosDbName": { "value": "[concat(parameters('resourcePrefix'), 'cosmosdb')]" },
+          "storageAccountName": { "value": "[concat(parameters('resourcePrefix'), 'storage')]" },
+          "location": { "value": "[parameters('location')]" }
+        }
+      }
+    }
+  ],
+  "outputs": {
+    "storageAccountName": {
+      "type": "string",
+      "value": "[concat(parameters('resourcePrefix'), 'storage')]"
+    },
+    "cdnProfileName": {
+      "type": "string",
+      "value": "[concat(parameters('resourcePrefix'), 'cdn')]"
+    },
+    "dnsZoneName": {
+      "type": "string",
+      "value": "[concat(parameters('resourcePrefix'), '.com')]"
+    },
+    "cosmosDbName": {
+      "type": "string",
+      "value": "[concat(parameters('resourcePrefix'), 'cosmosdb')]"
+    },
+    "functionAppName": {
+      "type": "string",
+      "value": "[concat(parameters('resourcePrefix'), 'func')]"
+    }
+  }
+}
