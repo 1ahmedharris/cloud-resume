@@ -1,62 +1,56 @@
-# .github/workflows/build-resume.yml
-name: Build Cloud Resume Frontend and Infrastructure
+name: Build Pipeline
 
 on:
   push:
     branches:
       - main
-  pull_request:
-    branches:
-      - main
-
-env:
-  AZURE_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-  RESOURCE_GROUP: 'cloud-resume-rg'
-  STORAGE_ACCOUNT: 'myresumestorageacct'
-  LOCATION: 'eastus'
 
 jobs:
-  build-frontend:
+  build:
     runs-on: ubuntu-latest
+
     steps:
-      # Check out the code
-      - name: Check out code
+      # Step 1: Checkout the Code
+      - name: Checkout Code
         uses: actions/checkout@v3
 
-      # Validate HTML, CSS, and JavaScript
-      - name: Validate HTML
-        uses: cybozu-go/github-action-htmlhint@v1
+      # Step 2: Set up Node.js for front-end build
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
         with:
-          files: './frontend/*.html'
+          node-version: '16'
 
-      - name: Validate CSS
-        uses: sultan99/csslint-action@v1
+      # Step 3: Install front-end dependencies and build front-end assets
+      - name: Install Front-end Dependencies
+        working-directory: ./frontend
+        run: |
+          npm install
+          npm run build
+
+      # Step 4: Set up Python for back-end (Azure Functions)
+      - name: Set up Python
+        uses: actions/setup-python@v2
         with:
-          path: './frontend/*.css'
+          python-version: '3.8'
 
-      - name: Lint JavaScript
-        uses: stefanoeb/eslint-action@v1
-        with:
-          files: './frontend/*.js'
+      # Step 5: Install back-end dependencies
+      - name: Install Back-end Dependencies
+        working-directory: ./backend
+        run: pip install -r requirements.txt
 
-  build-infra:
-    runs-on: ubuntu-latest
-    needs: build-frontend
-    steps:
-      # Check out the code
-      - name: Check out code
-        uses: actions/checkout@v3
-
-      # Azure Login
-      - name: Azure Login
-        uses: azure/login@v1
-        with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
-
-      # Validate ARM Templates
+      # Step 6: Build Infrastructure as Code (IaC) files (optional linting or validation)
       - name: Validate ARM Templates
         run: |
-          az deployment group validate \
-            --resource-group ${{ env.RESOURCE_GROUP }} \
-            --template-file ./arm-templates/mainTemplate.json \
-            --parameters ./arm-templates/parameters.json
+          for template in ./iac/*.json; do
+            az deployment group validate --resource-group <resource-group-name> --template-file $template || exit 1
+          done
+
+      # Step 7: Upload Built Artifact for Next Steps
+      - name: Upload Build Artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: build-artifacts
+          path: |
+            ./frontend/build
+            ./backend
+            ./iac
