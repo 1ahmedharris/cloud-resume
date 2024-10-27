@@ -1,4 +1,4 @@
-name: ci/cd pipeline
+name: frontend ci/cd pipeline
 
 on:
   push:
@@ -59,7 +59,7 @@ jobs:
       # Step 4: Deploy Infrastructure (Azure DNS, CDN, and Storage Blob) via IaC
       - name: Deploy Infrastructure
         run: |
-          az deployment group create --resource-group <your-resource-group> --template-file my-resume/frontend/mainTemplate.json
+          az deployment group create --resource-group <your-resource-group> --template-file cloud-resume/frontend/mainTemplate.json
 
       # Step 5: Deploy Static Site to Storage Blob
       - name: Deploy Static Site to Storage Blob
