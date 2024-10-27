@@ -30,7 +30,10 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: site-files
-          path: cloud-resume/frontend  # Path to upload files in 'my-resume/frontend' directory
+          path: |
+            cloud-resume/frontend/index.html
+            cloud-resume/frontend/styles.css
+            cloud-resume/frontend/images  # Path to upload specific files in 'cloud-resume/frontend' directory
 
   deploy:
     runs-on: ubuntu-latest
@@ -56,7 +59,7 @@ jobs:
       # Step 4: Deploy Infrastructure (Azure DNS, CDN, and Storage Blob) via IaC
       - name: Deploy Infrastructure
         run: |
-          az deployment group create --resource-group <your-resource-group> --template-file cloud-resume/frontend/mainTemplate.json
+          az deployment group create --resource-group <your-resource-group> --template-file my-resume/frontend/mainTemplate.json
 
       # Step 5: Deploy Static Site to Storage Blob
       - name: Deploy Static Site to Storage Blob
@@ -83,5 +86,5 @@ jobs:
       - name: Run Smoke Tests
         uses: cypress-io/github-action@v6.7.5
         with:
-          config: "baseUrl=https://<ahmedharrisresume.com>"
+          config: "baseUrl=https://ahmedharrisresume.com"
       # Ensure Cypress tests cover key functionality and elements on your site
