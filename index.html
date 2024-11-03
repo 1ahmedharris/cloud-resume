@@ -1,3 +1,4 @@
+
 <! -- VERSION 1.0 -->
 
 <!DOCTYPE html>
@@ -142,11 +143,12 @@
 <!--	    
         <p><a href="profile.html" class="plain-link"><b>Profile</></a><br>
 	    <a href="projects.html" class="plain-link"><b>Projects</b></a></p> 
+		<p><b>You are visitor: 1,000,000</b></p>
 -->
         <center> 
-	   <p><b>You are visitor: 1,000,000</b></p>
-	</center>
-     <br>
+	   <p><b>You are visitor: <span id="visitor-count"></span></b></p>
+	   </center>
+       <br>
 
 	<p></p> 
        <p>
@@ -155,8 +157,41 @@
 	   <b>&#169 2024 Ahmed Harris.</b>
        </p>
     </main>
+	
+	
+	<script>
+    async function fetchVisitorCount() {
+        try {
+            // Replace <your-function-app-name> with your actual Azure Function App URL
+            const response = await fetch("https://aitc-api.azurewebsites.net/api/http_trigger1?code=-F2GjRlIp59XFT802lCfVJ30z5Ag28QLBDZs2mymNucBAzFu0Oshyw%3D%3D", {
+                method: "POST"
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                const visitorCount = data.visitor_count;
+
+                // Update the HTML span with the visitor count
+                document.getElementById("visitor-count").textContent = visitorCount.toLocaleString();
+            } else {
+                console.error("Failed to fetch visitor count");
+                document.getElementById("visitor-count").textContent = "Unavailable";
+            }
+        } catch (error) {
+            console.error("Error fetching visitor count:", error);
+            document.getElementById("visitor-count").textContent = "Unavailable";
+        }
+    }
+
+    // Run the function when the page loads
+    window.onload = fetchVisitorCount;
+</script>
+
 
   </body>
+  
+  
+  
 </html>
 
 
