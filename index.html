@@ -146,7 +146,7 @@
 		<p><b>You are visitor: 1,000,000</b></p>
 -->
         <center> 
-	   <p><b>You are visitor: <span id="visitor-count"></span></b></p>
+	   <p><b>You are visitor: <span id="visitor-counter"></span></b></p>
 	   </center>
        <br>
 
@@ -159,33 +159,23 @@
     </main>
 	
 	
-	<script>
-    async function fetchVisitorCount() {
-        try {
-            // Replace <your-function-app-name> with your actual Azure Function App URL
-            const response = await fetch("https://aitc-api.azurewebsites.net/api/http_trigger1?code=-F2GjRlIp59XFT802lCfVJ30z5Ag28QLBDZs2mymNucBAzFu0Oshyw%3D%3D", {
-                method: "POST"
-            });
-
-            if (response.ok) {
+   <script>
+        async function updateVisitorCount() {
+            try {
+                const response = await fetch("https://aitc-api.azurewebsites.net/api/http_trigger1");
                 const data = await response.json();
-                const visitorCount = data.visitor_count;
 
-                // Update the HTML span with the visitor count
-                document.getElementById("visitor-count").textContent = visitorCount.toLocaleString();
-            } else {
-                console.error("Failed to fetch visitor count");
-                document.getElementById("visitor-count").textContent = "Unavailable";
+                // Update the visitor counter element with the count
+                document.getElementById("visitor-counter").textContent = data.visitor_count;
+            } catch (error) {
+                console.error("Error fetching visitor count:", error);
+                document.getElementById("visitor-counter").textContent = "Error loading count";
             }
-        } catch (error) {
-            console.error("Error fetching visitor count:", error);
-            document.getElementById("visitor-count").textContent = "Unavailable";
         }
-    }
 
-    // Run the function when the page loads
-    window.onload = fetchVisitorCount;
-</script>
+        // Call the function when the page loads
+        updateVisitorCount();
+    </script>
 
 
   </body>
@@ -193,6 +183,7 @@
   
   
 </html>
+
 
 
 
