@@ -1,0 +1,26 @@
+{
+  "bindings": [
+    {
+      "name": "req",
+      "type": "httpTrigger",
+      "direction": "in",
+      "authLevel": "function",
+      "methods": ["get"]
+    },
+    {
+      "name": "visitorDocument",
+      "type": "cosmosDB",
+      "direction": "in",
+      "databaseName": "TablesDB",
+      "containerName": "VisitorCountTable",
+      "connectionStringSetting": "DefaultEndpointsProtocol=https;AccountName=aitc-db;AccountKey=NOyS8hh3lWLG9sAdh9iRUkxohF1yzOFCsuZVrzNk6u0MULWjfnDk1HotDiibAH4To1gKajOCUVGNACDbVo9DZg==;TableEndpoint=https://aitc-db.table.cosmos.azure.com:443/;",
+      "partitionKey": "visitor-counter",
+      "id": "visitor-count"
+    },
+    {
+      "name": "res",
+      "type": "http",
+      "direction": "out"
+    }
+  ]
+}
