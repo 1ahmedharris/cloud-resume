@@ -146,7 +146,7 @@
 		<p><b>You are visitor: 1,000,000</b></p>
 -->
         <center> 
-	   <p><b>You are visitor: <span id="visitor-counter"></span></b></p>
+	   <b>You are visitor:</b> <p id="visitorCount"></p>
 	   </center>
        <br>
 
@@ -159,30 +159,36 @@
     </main>
 	
 	
-   <script>
-        async function updateVisitorCount() {
-            try {
-                const response = await fetch("https://aitc-api.azurewebsites.net/api/http_trigger1");
-                const data = await response.json();
+	
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    // Define the URL of the Azure Function
+    const functionUrl = "https://aitc-function.azurewebsites.net/api/http_trigger1?code=xQTLmmjwTWafH7BViMzu6ZsaMSDsuCrQ7Pk6mjG_LZLHAzFu_bv5KA%3D%3D";
 
-                // Update the visitor counter element with the count
-                document.getElementById("visitor-counter").textContent = data.visitor_count;
-            } catch (error) {
-                console.error("Error fetching visitor count:", error);
-                document.getElementById("visitor-counter").textContent = "Error loading count";
-            }
-        }
+    // Fetch the visitor count
+    fetch(functionUrl)
+        .then(response => response.json())
+        .then(data => {
+            // Display the visitor count
+            document.getElementById("visitorCount").innerText = data.visitor_count;
+        })
+        .catch(error => {
+            console.error("Error fetching visitor count:", error);
+            document.getElementById("visitorCount").innerText = "Error fetching visitor count";
+        });
+});
+</script>
 
-        // Call the function when the page loads
-        updateVisitorCount();
-    </script>
+    
 
-
-  </body>
-  
-  
-  
 </html>
+
+
+
+
+
+
+
 
 
 
