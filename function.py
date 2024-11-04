@@ -1,48 +1,44 @@
-import logging
 import os
-import json
-from azure.cosmos import CosmosClient, exceptions
 import azure.functions as func
+from azure.cosmos import CosmosClient, exceptions
 
-# Environment variables
-COSMOS_DB_ENDPOINT = os.environ["COSMOS_DB_ENDPOINT"]
-COSMOS_DB_KEY = os.environ["COSMOS_DB_KEY"]
-DATABASE_NAME = "aitc-db"   # Replace with actual database name
-TABLE_NAME = "VisitorCountTable"         # Replace with actual container name
+# Set up the environment variables
+COSMOS_DB_ENDPOINT = os.getenv("https://aitc-db.table.cosmos.azure.com:443/")
+COSMOS_DB_KEY = os.getenv("NOyS8hh3lWLG9sAdh9iRUkxohF1yzOFCsuZVrzNk6u0MULWjfnDk1HotDiibAH4To1gKajOCUVGNACDbVo9DZg==")
+DATABASE_NAME = "TablesDB"  # Replace with your actual database name
+CONTAINER_NAME = "VisitorCountTable"  # Replace with your actual table/container name
 
-# Initialize Cosmos client
-client = CosmosClient(COSMOS_DB_ENDPOINT, COSMOS_DB_KEY)
-database = client.get_database_client(DATABASE_NAME)
-container = database.get_container_client(TABLE_NAME)
+# Define partition key and document ID
+PARTITION_KEY = "visitor-counter"  # Your actual partition key value
+DOCUMENT_ID = "visitor-count"  # RowKey for the document
 
 def main(req: func.HttpRequest) -> func.HttpResponse:
-    logging.info("Function triggered to update visitor count.")
     try:
-        # Define partition key and row key to match your Cosmos DB entry
-        partition_key = "visitor-counter"
-        row_key = "visitor-count"
+        # Initialize Cosmos DB client
+        client = CosmosClient(COSMOS_DB_ENDPOINT, COSMOS_DB_KEY)
+        database = client.get_database_client(DATABASE_NAME)
+        container = database.get_container_client(CONTAINER_NAME)
 
-        # Read current visitor count
-        logging.info("Attempting to read item from Cosmos DB.")
-        item = container.read_item(item=row_key, partition_key=partition_key)
-        visitor_count = item.get("visitorCount", 0)
-        logging.info(f"Current visitor count: {visitor_count}")
-
-        # Increment and update count
-        visitor_count += 1
-        item["visitorCount"] = visitor_count
-        container.upsert_item(item)
-        logging.info(f"Visitor count updated to: {visitor_count}")
-
-        # Return updated count as JSON
+        # Retrieve the item with the specified partition key and document ID
+        try:
+            item = container.read_item(item=DOCUMENT_ID, partition_key=PARTITION_KEY)
+            visitor_count = item.get("visitorCount", 0)  # Adjust 'visitorCount' if needed
+            return func.HttpResponse(
+                body=f'{{"visitor_count": {visitor_count}}}',
+                status_code=200,
+                mimetype="application/json"
+            )
+        except exceptions.CosmosHttpResponseError as e:
+            # Handle specific error if item does not exist or other issues arise
+            return func.HttpResponse(
+                body=f'{{"error": "Error retrieving visitor count: {e.message}"}}',
+                status_code=500,
+                mimetype="application/json"
+            )
+    except Exception as e:
+        # Handle any general errors related to Cosmos DB connection or configuration
         return func.HttpResponse(
-            json.dumps({"visitor_count": visitor_count}),
-            status_code=200,
+            body=f'{{"error": "Connection failed: {str(e)}"}}',
+            status_code=500,
             mimetype="application/json"
         )
-    except exceptions.CosmosHttpResponseError as e:
-        logging.error(f"Error accessing Cosmos DB: {str(e)}")
-        return func.HttpResponse("Error accessing Cosmos DB.", status_code=500)
-    except Exception as e:
-        logging.error(f"General error: {str(e)}")
-        return func.HttpResponse("An unexpected error occurred.", status_code=500)
