@@ -2,24 +2,24 @@
 from azure.cosmos import CosmosClient, PartitionKey, PatchOperation
 
 # Replace with your Cosmos DB endpoint and key
-endpoint = "YOUR_COSMOS_DB_ENDPOINT" 
-key = "YOUR_COSMOS_DB_KEY" 
+endpoint = "COSMOS_DB_ENDPOINT" 
+key = "COSMOS_DB_KEY" 
 
 # Replace with your database and container name
-database_name = "YOUR_DATABASE_NAME"
-container_name = "YOUR_CONTAINER_NAME"
+database_name = "TablesDB"
+container_name = "VisitorCountTable"
 
 client = CosmosClient(endpoint, key)
 database = client.get_database_client(database_name)
 container = database.get_container_client(container_name)
 
 # Replace with your document ID and partition key
-document_id = "YOUR_DOCUMENT_ID"
-partition_key = "YOUR_PARTITION_KEY"
+document_id = "visitor-count"
+partition_key = "visitor-counter"
 
 # Increment the 'count' field by 1
 patch_operations = [
-    PatchOperation.Increment("/count", 1)
+    PatchOperation.Increment("/visitorCount", 1)
 ]
 
 response = container.patch_item(
