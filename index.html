@@ -1,4 +1,5 @@
 
+
 <! -- VERSION 1.0 -->
 
 <!DOCTYPE html>
@@ -146,7 +147,8 @@
 		<p><b>You are visitor: 1,000,000</b></p>
 -->
         <center> 
-	   <b>You are visitor:</b> <p id="visitorCount"></p>
+	   <!--	<b>You are visitor:</b> <p id="visitorCount"></p>-->
+	   <span id="visitorCount">0</span>
 	   </center>
        <br>
 
@@ -164,6 +166,7 @@
 window.addEventListener('DOMContentLoaded', (e) => {
     getVisitorCount();
 })
+
 const myApiLink = {'https://aitc-api.azurewebsites.net/api/http_trigger1?code=Xb6Vit1e8b4ZJnzeHNoxJhMIYCwZKZVmsVovyFW1E4QAAzFuZASN2A%3D%3D'};
 const getVisitorCount =() => {
     let count = 0;
@@ -173,7 +176,7 @@ fetch(myApiLink , {
     return response.json() }
 ).then(res => {
 const count = res;
-document.getElementById('count').innerHTML = count;
+document.getElementById('visitor-counter').innerHTML = count;
 })
 return count;
 }
