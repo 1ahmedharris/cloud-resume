@@ -161,22 +161,22 @@
 	
 	
 <script>
-document.addEventListener("DOMContentLoaded", function() {
-    // Define the URL of the Azure Function
-    const functionUrl = "https://aitc-function.azurewebsites.net/api/http_trigger1?code=xQTLmmjwTWafH7BViMzu6ZsaMSDsuCrQ7Pk6mjG_LZLHAzFu_bv5KA%3D%3D";
-
-    // Fetch the visitor count
-    fetch(functionUrl)
-        .then(response => response.json())
-        .then(data => {
-            // Display the visitor count
-            document.getElementById("visitorCount").innerText = data.visitor_count;
-        })
-        .catch(error => {
-            console.error("Error fetching visitor count:", error);
-            document.getElementById("visitorCount").innerText = "Error fetching visitor count";
-        });
-});
+window.addEventListener('DOMContentLoaded', (e) => {
+    getVisitorCount();
+})
+const myApiLink = {'https://aitc-api.azurewebsites.net/api/http_trigger1?code=Xb6Vit1e8b4ZJnzeHNoxJhMIYCwZKZVmsVovyFW1E4QAAzFuZASN2A%3D%3D'};
+const getVisitorCount =() => {
+    let count = 0;
+fetch(myApiLink , {
+    mode: 'cors'
+}).then(response => {
+    return response.json() }
+).then(res => {
+const count = res;
+document.getElementById('count').innerHTML = count;
+})
+return count;
+}
 </script>
 
     
