@@ -23,6 +23,17 @@
 				<span class="small"><b><a href="https://github.com/1ahmedharris">GitHub</a> <a href="https://www.linkedin.com/in/ahmed-harris-devops/">Linkedin</a></b></span>
 		     </h1>
         </header>
+		
+		<script>
+            const counter = document.querySelector(".counter-number");
+            async function updateCounter() {
+            let response = await fetch("https://wbhd3xxqsva7vbkdyspmnlo2zm0fmbci.lambda-url.us-east-1.on.aws/");
+            let data = await response.json();
+            counter.innerHTML = `${data}`;
+
+            updateCounter();
+        </script>
+  </body>
 
     <main>
         <p>Greetings! Trained to connect networks and communications systems in the U.S. Air Force, I began a 10+ year journey of IT Operations, System Administration, 
@@ -146,9 +157,14 @@
 	    <a href="projects.html" class="plain-link"><b>Projects</b></a></p> 
 		<p><b>You are visitor: 1,000,000</b></p>
 -->
+
+
+
+
         <center> 
 	   <!--	<b>You are visitor:</b> <p id="visitorCount"></p>-->
 	   <!--	<span id="visitorCount">0</span>  -->
+	   <a>Views:</a> <a class="counter-number"></a>
 	   </center>
        <br>
 
@@ -161,30 +177,12 @@
     </main>
 	
 	
-<!--	    
-
-<script>
-window.addEventListener('DOMContentLoaded', (e) => {
-    getVisitorCount();
-})
-
-const myApiLink = {'https://aitc-api.azurewebsites.net/api/http_trigger1?code=Xb6Vit1e8b4ZJnzeHNoxJhMIYCwZKZVmsVovyFW1E4QAAzFuZASN2A%3D%3D'};
-const getVisitorCount =() => {
-    let count = 0;
-fetch(myApiLink , {
-    mode: 'cors'
-}).then(response => {
-    return response.json() }
-).then(res => {
-const count = res;
-document.getElementById('visitor-counter').innerHTML = count;
-})
-return count;
-}
-</script>
 
 
--->	 
+
+
+
+
 
 </html>
 
