@@ -19,38 +19,57 @@
 			    <span class="large"><b>Ahmed Harris</b></span><br>
                 <span class="medium"><b>DevOps/Cloud Engineer</b></span><br>
                 <span class="small"><b>Metro Atlanta Area</b></span><br>
-			    <span class="small"><b>1ahmedharris@gmail.com  | <a href="404-587-7713">404-587-7713</a></b>
+				<span class="small"><b><a href="mailto:1ahmedharris@gmail.com">1ahmedharris@gmail.com</a> <a href="tel:404-587-7713">404-587-7713</a></b></span><br>
 				<span class="small"><b><a href="https://github.com/1ahmedharris">GitHub</a> <a href="https://www.linkedin.com/in/ahmed-harris-devops/">Linkedin</a></b></span>
 		     </h1>
         </header>
 		
-		<script>
-            const counter = document.querySelector(".counter-number");
-            async function updateCounter() {
-            let response = await fetch("https://wbhd3xxqsva7vbkdyspmnlo2zm0fmbci.lambda-url.us-east-1.on.aws/");
-            let data = await response.json();
-            counter.innerHTML = `${data}`;
+    <script>
+// Fetch visitor count from AWS Lambda function and update the HTML
+fetch("https://wbhd3xxqsva7vbkdyspmnlo2zm0fmbci.lambda-url.us-east-1.on.aws/")
+    .then((response) => {
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json(); // Parse the JSON response
+    })
+    .then((data) => {
+        // Assuming the JSON response is structured as { "views": <number> }
+        const visitorCount = data.views; 
+        document.getElementById("counter").textContent = visitorCount;
+    })
+    .catch((error) => {
+        console.error("Error fetching visitor count:", error);
+    });
 
-            updateCounter();
-        </script>
+
+    </script>
   </body>
 
     <main>
-        <p>Greetings! Trained to connect networks and communications systems in the U.S. Air Force, I began a 10+ year journey of IT Operations, System Administration, 
+        <p>Greetings! A hands on technologist and engineer at heart, with a deep understanding of the modern technology stack. Trained to connect networks and communications systems in the U.S. Air Force, I began a 10+ year journey of IT Operations, System Administration, 
 	    DevOps and Cloud Engineering. Always looking forward to building solutions for highly available, secure, and cost optimized infrastructure in the cloud.</p>
 		<br>
+		
+		
+		<center> 
+	   <!--	<b>You are visitor:</b> <p id="visitorCount"></p>-->
+	   <!--	<span id="visitorCount">0</span>  -->
+	   <!--    <p>Visitor Count: <span id="counter"></span></p>  -->
+	   <p><b>You are visitor: <span id="counter">Loading...</span></b></p>
+	   </center>
+       <br>
 		
 
       <section>	  
         <h2>PROJECTS</h2>
-	    <p>The website you are looking at is the end result of the <b>Cloud Resume Challenge</b>.</p>
+	    <p>The website you are looking at is the end result of the <b>Cloud Resume Challenge hosted in Amazon AWS.</b></p>
 			<ul>
-			  <li><b>Implemented CI/CD pipeline</b> to automate build, testing, and deployments to Azure. Used Git version control management with GitHub Actions for continuous integration of updates to codebase. Automated continuous deployments, improving release frequency and reducing manual configuration.</li><br>
-			  <li><b>Architected Scalable Infrastructure using Infrastructure as Code (IaC)</b>. Automated infrastructure provisioning and configuration, utilizing Azure ARM templates. Ensuring efficient, repeatable, and version-controlled deployments. Also improving resource management.</li><br>
-		      <li><b>Optimized and Secured Content Delivery.</b> Leveraged Azure CDN delivering high-bandwidth content, reducing latency, enhancing user experience, and securing data transfer with custom domain HTTPS.
-</li><br>
-	          <li><b>Designed Event Driven Architecture Solution.</b> Implemented serverless, event-driven architecture scaling automatically and reducing costs, running only on demand. Configured Azure Functions to securely interact with Azure Cosmos DB, updating and retrieving data seamlessly.</b> </li><br>
-	          <li><b>Secured infrastructure,</b> configuring Azure Storage firewall rules and restricting public access to Azure Storage & CosmosDB. Established reseliency, configuring Azure storage disaster recovery and failover, accounting for outages and updates.</li>
+			  <li><b>Implemented CI/CD pipeline</b> to automate build, testing, and deployments to AWS. Used Git version control management with GitHub Actions for continuous integration of updates to codebase. Automated continuous deployments, improving release frequency and reducing manual configuration.</li><br>
+			  <li><b>Architected Scalable Infrastructure using Infrastructure as Code (IaC).</b> Automated infrastructure provisioning and configuration, utilizing AWS CloudFormation templates. Ensuring efficient, repeatable, and version-controlled deployments. Also improving resource management.</li><br>
+		      <li><b>Optimized and Secured Content Delivery.</b> Leveraged AWS CloudFront CDN delivering high-bandwidth content, reducing latency, enhancing user experience, and securing data in transit with HTTPS.</li><br>
+	          <li><b>Designed Event Driven Architecture Solution.</b> Implemented serverless, event-driven back end scaling automatically and reducing costs, running only on demand. Configured Python AWS Lamba function to securely interact with AWS DynamoDB, updating and retrieving data seamlessly.</b> </li><br>
+	          <li><b>Secured infrastructure,</b> configuring AWS S3 firewall rules and restricting public access to S3 storage bucket & DynamoDB. Established reseliency, configuring S3 storage disaster recovery and failover, accounting for outages and updates.</li>
 		  </ul>
 			  <br>
 		<br>
@@ -158,16 +177,6 @@
 		<p><b>You are visitor: 1,000,000</b></p>
 -->
 
-
-
-
-        <center> 
-	   <!--	<b>You are visitor:</b> <p id="visitorCount"></p>-->
-	   <!--	<span id="visitorCount">0</span>  -->
-	   <a>Views:</a> <a class="counter-number"></a>
-	   </center>
-       <br>
-
 	<p></p> 
        <p>
 	   <a href="https://github.com/1ahmedharris"><img src="github-mark.png" style="width:50px;height:50px;"></a>
@@ -176,13 +185,6 @@
        </p>
     </main>
 	
-	
-
-
-
-
-
-
 
 </html>
 
