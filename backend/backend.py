@@ -1,10 +1,24 @@
-import logging
+import json
+import boto3
+from decimal import Decimal
 
-def main(context: func.Context, req: func.HttpRequest, data) -> func.HttpResponse:
-    logging.info('Python HTTP trigger function processed a request.')
+dynamodb = boto3.resource('dynamodb')
+table = dynamodb.Table('visitor-count-table')
 
-    context.bindings.outputDocument = data[0]
-    context.bindings.outputDocument['count'] += 1
-    return func.HttpResponse(
-        body=str(data[0]['count'])
+def lambda_handler(event, context):
+    response = table.get_item(Key={'id':'1'})
+    views = int(response['Item']['views']) 
+    views += 1
+    
+    
+    
+    response = table.update_item(
+        Key={'id':'1'},
+        UpdateExpression='SET #v = :val',
+        ExpressionAttributeNames={'#v': 'views'},
+        ExpressionAttributeValues={':val': views}
     )
+
+    return {      
+            'statusCode': 200,
+            'body': json.dumps(views)}
