@@ -5,7 +5,7 @@ on:
     branches:
       - main
     paths:
-      - 'cloud-resume/frontend/**'  # Only run on changes to files in 'my-resume/frontend'
+      - 'AWS-ClouD-Resume_challenge/frontend/**'  # Only run on changes to files in 'my-resume/frontend'
 
 jobs:
   build:
@@ -54,28 +54,28 @@ jobs:
       - name: # AWS Login
         uses: # aws/login@v2.2.0
         with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
+          creds: ${{ secrets.AWS_CREDENTIALS }}
 
       # Step 4: Deploy Infrastructure (DNS, CDN, and Storage Blob) via IaC
       - name: Deploy Infrastructure
         run: |
-          az deployment group create --resource-group <your-resource-group> --template-file cloud-resume/frontend/mainTemplate.json
+          aws deployment group create --resource-group <resource-group> --template-file AWS-Cloud-Resume-Challenge/frontend/mainTemplate.json
 
       # Step 5: Deploy Static Site to Storage Blob
       - name: Deploy Static Site to Storage Blob
         run: |
-          az storage blob upload-batch \
+          aws storage blob upload-batch \
             --source ./site-files \
             --destination '$web' \
             --account-name ${{ account_name }}
 
-      # Step 6: Purge Azure CDN Endpoint
-      - name: Purge Azure CDN Endpoint
+      # Step 6: Purge CloudFront CDN Endpoint
+      - name: Purge CDN Endpoint
         run: |
-          az cdn endpoint purge \
-            --resource-group <your-resource-group> \
-            --profile-name <your-cdn-profile> \
-            --name <your-cdn-endpoint> \
+          aws cdn endpoint purge \
+            --resource-group <-resource-group> \
+            --profile-name <-cdn-profile> \
+            --name <-cdn-endpoint> \
             --content-paths '/*'
 
   smoke-test:
