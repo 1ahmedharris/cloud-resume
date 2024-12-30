@@ -50,13 +50,13 @@ jobs:
           name: site-files
           path: ./site-files
 
-      # Step 3: Login to Azure
-      - name: Azure Login
-        uses: azure/login@v2.2.0
+      # Step 3: Login 
+      - name: # AWS Login
+        uses: # aws/login@v2.2.0
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-      # Step 4: Deploy Infrastructure (Azure DNS, CDN, and Storage Blob) via IaC
+      # Step 4: Deploy Infrastructure (DNS, CDN, and Storage Blob) via IaC
       - name: Deploy Infrastructure
         run: |
           az deployment group create --resource-group <your-resource-group> --template-file cloud-resume/frontend/mainTemplate.json
@@ -87,4 +87,4 @@ jobs:
         uses: cypress-io/github-action@v6.7.5
         with:
           config: "baseUrl=https://ahmedharrisresume.com"
-      # Ensure Cypress tests cover key functionality and elements on your site
+      # Ensure Cypress tests cover key functionality and elements on site
