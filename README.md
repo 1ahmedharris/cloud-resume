@@ -7,7 +7,7 @@ This project is my resume built with AWS S3 static website hosting, and AWS serv
 
 
 
-Technologies/Tools used
+Technologies/Tools used:
 AWS Route53 DNS
 AWS CloudFront CDN
 AWS S3
