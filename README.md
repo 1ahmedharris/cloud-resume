@@ -2,6 +2,7 @@ AWS HOSTED RESUME WEBSITE (CLOUD RESUME CHALLENGE)
 
 Check it out here: ahmedharrisresume.com 
 
+
 Overview
 
 This project is my resume built with AWS S3 static website hosting, and AWS serverless architecture, inspired by the Cloud Resume Challenge. 
