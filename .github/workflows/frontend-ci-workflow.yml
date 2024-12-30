@@ -67,7 +67,7 @@ jobs:
           az storage blob upload-batch \
             --source ./site-files \
             --destination '$web' \
-            --account-name ${{ secrets.AZURE_STORAGE_ACCOUNT_NAME }}
+            --account-name ${{ account_name }}
 
       # Step 6: Purge Azure CDN Endpoint
       - name: Purge Azure CDN Endpoint
