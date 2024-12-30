@@ -1,1 +1,90 @@
+name: frontend ci/cd pipeline
 
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'cloud-resume/frontend/**'  # Only run on changes to files in 'my-resume/frontend'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      # Step 1: Check out the repository
+      - name: Checkout Code
+        uses: actions/checkout@v4.2
+
+      # Step 2: Run Super Linter on HTML/CSS/JSON Files
+      - name: Run Linter
+        uses: github/super-linter@v7
+        env:
+          VALIDATE_HTML: true
+          VALIDATE_CSS: true
+          VALIDATE_JSON: true
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        continue-on-error: false  # Ensure it fails the pipeline if there’s a lint error
+
+      # Step 3: Upload Files as Artifact for Deploy
+      - name: Upload Site Files
+        uses: actions/upload-artifact@v4
+        with:
+          name: site-files
+          path: |
+            cloud-resume/frontend/index.html
+            cloud-resume/frontend/styles.css
+            cloud-resume/frontend/images  # Path to upload specific files in 'cloud-resume/frontend' directory
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      # Step 1: Check out the repository again
+      - name: Checkout Code
+        uses: actions/checkout@v4.2
+
+      # Step 2: Download the build artifact from the build job
+      - name: Download Build Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: site-files
+          path: ./site-files
+
+      # Step 3: Login to Azure
+      - name: Azure Login
+        uses: azure/login@v2.2.0
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      # Step 4: Deploy Infrastructure (Azure DNS, CDN, and Storage Blob) via IaC
+      - name: Deploy Infrastructure
+        run: |
+          az deployment group create --resource-group <your-resource-group> --template-file cloud-resume/frontend/mainTemplate.json
+
+      # Step 5: Deploy Static Site to Storage Blob
+      - name: Deploy Static Site to Storage Blob
+        run: |
+          az storage blob upload-batch \
+            --source ./site-files \
+            --destination '$web' \
+            --account-name ${{ secrets.AZURE_STORAGE_ACCOUNT_NAME }}
+
+      # Step 6: Purge Azure CDN Endpoint
+      - name: Purge Azure CDN Endpoint
+        run: |
+          az cdn endpoint purge \
+            --resource-group <your-resource-group> \
+            --profile-name <your-cdn-profile> \
+            --name <your-cdn-endpoint> \
+            --content-paths '/*'
+
+  smoke-test:
+    runs-on: ubuntu-latest
+    needs: deploy
+    steps:
+      # Step 1: Run Cypress Tests
+      - name: Run Smoke Tests
+        uses: cypress-io/github-action@v6.7.5
+        with:
+          config: "baseUrl=https://ahmedharrisresume.com"
+      # Ensure Cypress tests cover key functionality and elements on your site
