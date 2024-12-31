@@ -23,8 +23,8 @@ This project is my resume built with AWS S3 static website hosting, and AWS serv
 
 
 
-**Architecture**
+## **Architecture**
 
 
 
-**Planned Features**
+## **Planned Features**
