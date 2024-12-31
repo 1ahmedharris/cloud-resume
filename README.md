@@ -1,6 +1,6 @@
 **AWS HOSTED RESUME WEBSITE (CLOUD RESUME CHALLENGE)**
 
-Check it out here: ahmedharrisresume.com 
+Check it out here: [Ahmed Harris Resume](https://ahmedharrisdevops.com )
 
 
 **Overview**
