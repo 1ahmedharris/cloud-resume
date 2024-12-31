@@ -1,4 +1,4 @@
-# H1 **AWS HOSTED RESUME WEBSITE (CLOUD RESUME CHALLENGE)**
+# **AWS HOSTED RESUME WEBSITE (CLOUD RESUME CHALLENGE)**
 
 Check it out here: [ahmedharrisdevops.com](https://ahmedharrisdevops.com )
 
