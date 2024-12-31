@@ -5,7 +5,7 @@ Check it out here: [ahmedharrisdevops.com](https://ahmedharrisdevops.com)
 
 
 ## **Overview**
-This project is my resume built with AWS S3 static website hosting, and AWS serverless architecture. inspired by the Cloud Resume Challenge. 
+This project is my resume built with AWS S3 static website hosting, and AWS serverless architecture. inspired by the [Cloud Resume Challenge](https://cloudresumechallenge.dev/docs/the-challenge/aws/). 
 
 
 
@@ -30,7 +30,7 @@ This project is my resume built with AWS S3 static website hosting, and AWS serv
 
 
 ## **Backend** 
-* API Gateway triggers Python Lambda function, which to updates and increments visitor countser in DynamoDB. 
+* API Gateway triggers Python Lambda function, which updates and increments visitor counter in DynamoDB. 
 * GitHub Actions CI/CD pipeline automatically deploys Python Lamba Function & DynamoDB.
 
 
