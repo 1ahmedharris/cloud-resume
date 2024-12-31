@@ -1,4 +1,4 @@
-## **AWS HOSTED RESUME WEBSITE <br> (CLOUD RESUME CHALLENGE)** <samp><img src="frontend/images/cloud1.ico" width="22" height="22" border="10"/></samp>
+## **AWS HOSTED RESUME WEBSITE <br> (CLOUD RESUME CHALLENGE)** <samp><img src="frontend/images/cloud1.ico" width="24" height="22" border="10"/></samp>
 
 
 Check it out here: [ahmedharrisdevops.com](https://ahmedharrisdevops.com) 
