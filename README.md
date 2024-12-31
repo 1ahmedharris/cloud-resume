@@ -22,10 +22,19 @@ This project is my resume built with AWS S3 static website hosting, and AWS serv
 
 
 
+## ** Frontend **
+* Website hosted in S3 bucket with CloudFront CDN providing HTTPS, global caching and low-latency delivery.
+* GitHub Actions CI/CD pipeline automatically deploys changes to HTML, CSS, and images to S3 bucket and refreshes CloudFront caches.
+* Route 53 manages custom domains, routing traffic securely through the CloudFront distribution.
 
 
-## **Architecture**
+
+## ** Backend **
+* API Gateway triggers Python Lambda function, which to updates and increments visitor countser in DynamoDB. 
+* GitHub Actions CI/CD pipeline automatically deploys Python Lamba Function & DynamoDB.
 
 
 
 ## **Planned Features**
+* Add Profile Page
+* Terraform IaC
