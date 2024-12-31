@@ -5,7 +5,7 @@ Check it out here: [ahmedharrisdevops.com](https://ahmedharrisdevops.com)
 
 
 ## **Overview**
-This project is my resume built with AWS S3 static website hosting. inspired by the [Cloud Resume Challenge](https://cloudresumechallenge.dev/docs/the-challenge/aws/). 
+This project is my resume built with AWS S3 static website hosting. Inspired by the [Cloud Resume Challenge](https://cloudresumechallenge.dev/docs/the-challenge/aws/). 
 
 
 
