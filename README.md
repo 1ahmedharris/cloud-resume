@@ -1,4 +1,4 @@
-## **AWS HOSTED RESUME WEBSITE (CLOUD RESUME CHALLENGE)** !(frontend/images/cloud1.ico)
+## **AWS HOSTED RESUME WEBSITE (CLOUD RESUME CHALLENGE)** [logo]: frontend/images/cloud1.ico
 
 
 Check it out here: [ahmedharrisdevops.com](https://ahmedharrisdevops.com )
