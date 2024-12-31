@@ -5,7 +5,7 @@ Check it out here: [ahmedharrisdevops.com](https://ahmedharrisdevops.com)
 
 
 ## **Overview**
-This project is my resume built with AWS S3 static website hosting, and AWS serverless architecture. inspired by the [Cloud Resume Challenge](https://cloudresumechallenge.dev/docs/the-challenge/aws/). 
+This project is my resume built with AWS S3 static website hosting. inspired by the [Cloud Resume Challenge](https://cloudresumechallenge.dev/docs/the-challenge/aws/). 
 
 
 
@@ -22,16 +22,12 @@ This project is my resume built with AWS S3 static website hosting, and AWS serv
 
 
 
-## **Frontend** 
-* Website hosted in S3 bucket with CloudFront CDN providing HTTPS, global caching and low-latency delivery.
-* GitHub Actions CI/CD pipeline automatically deploys changes to HTML, CSS, and images to S3 bucket and refreshes CloudFront caches.
+## **Architecture** 
 * Route 53 manages custom domains, routing traffic securely through the CloudFront distribution.
-
-
-
-## **Backend** 
-* API Gateway triggers Python Lambda function, which updates and increments visitor counter in DynamoDB. 
-* GitHub Actions CI/CD pipeline automatically deploys Python Lamba Function & DynamoDB.
+* Website hosted in S3 bucket, with CloudFront CDN providing HTTPS, global caching, and low-latency delivery.
+* API Gateway triggers Python Lambda function, updating and incrementing visitor counter in DynamoDB.
+* GitHub Actions CI/CD frontend pipeline automatically deploys changes to HTML, CSS, and images to S3 bucket and refreshes CloudFront caches.
+* GitHub Actions CI/CD backend pipeline automatically deploys Python Lamba Function & DynamoDB.
 
 
 
