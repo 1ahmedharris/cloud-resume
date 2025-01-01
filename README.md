@@ -10,7 +10,7 @@ This project is my resume written in HTML and hosted with AWS S3 static website 
 
 
 ## **Technologies/Tools used**
-* Cloud: AWS, Route53, CloudFront CDN, S3, DynamoDB, Lamba 
+* Cloud: AWS, Route 53, CloudFront CDN, S3, DynamoDB, Lamba 
 * IaC: AWS CloudFormation
 * Version Control: Git
 * CI/CD: GitHub Actions
@@ -21,7 +21,7 @@ This project is my resume written in HTML and hosted with AWS S3 static website 
 ## **Architecture** 
 * Route 53 manages custom domains, routing traffic securely through CloudFront distribution.
 * Website stored in S3, with CloudFront CDN providing HTTPS, global caching, and low-latency delivery.
-* API Gateway triggers Python Lambda function, incrementing visitor counter in DynamoDB.
+* API Gateway triggers Python Lambda function, incrementing visitor count in DynamoDB.
 * GitHub Actions CI/CD frontend pipeline automatically deploys changes to HTML, CSS, and images; into S3 bucket and refreshes CloudFront caches.
 * GitHub Actions CI/CD backend pipeline automatically deploys Python Lamba Function & DynamoDB to AWS.
 
