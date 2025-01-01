@@ -19,11 +19,11 @@ This project is my resume written in HTML and hosted with AWS S3 static website 
 
 
 ## **Architecture** 
-* Route 53 manages custom domains, routing traffic securely through CloudFront distribution.
+* Route 53 manages custom domains, routing traffic through CloudFront distribution.
 * Website stored in S3, with CloudFront CDN providing HTTPS, global caching, and low-latency delivery.
 * API Gateway triggers Python Lambda function, incrementing visitor count in DynamoDB.
-* GitHub Actions CI/CD frontend pipeline automatically deploys changes to HTML, CSS, and images; into S3 bucket and refreshes CloudFront caches.
-* GitHub Actions CI/CD backend pipeline automatically deploys Python Lamba Function & DynamoDB to AWS.
+* GitHub Actions frontend CI/CD pipeline automatically deploys changes to HTML, CSS, and images into S3 bucket. Then refreshes CloudFront caches.
+* GitHub Actions backend CI/CD pipeline automatically deploys Python Lamba Function & DynamoDB to AWS.
 
 
 
