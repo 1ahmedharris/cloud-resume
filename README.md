@@ -28,5 +28,6 @@ This project is my resume written in HTML and hosted with AWS S3 static website 
 
 
 ## **Planned Features**
-* Add Profile Page
 * Terraform IaC
+* Add Profile Page
+* Enhance Website Design
