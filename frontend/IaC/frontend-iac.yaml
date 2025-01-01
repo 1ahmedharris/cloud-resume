@@ -1,7 +1,5 @@
----
-Metadata:
-  AWSToolsMetrics:
-    IaC_Generator: "arn:aws:cloudformation:us-east-1:941377150270:generatedTemplate/cce28cd2-881b-4c3f-8ce3-455548b879c1"
+AWSTemplateFormatVersion: "2010-09-09"
+Description: "CloudFormation template for frontend infrastructure"
 Resources:
   Route53HostedZone00Z01018062M98VOF9SUSIM004RREs:
     UpdateReplacePolicy: "Retain"
