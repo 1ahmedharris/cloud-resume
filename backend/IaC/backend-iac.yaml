@@ -1,6 +1,6 @@
 
 AWSTemplateFormatVersion: "2010-09-09"
-Description: "CloudFormation Backend Infrastructure"
+Description: "CloudFormation template for frontend infrastructure"
 Parameters:
   LambdaFunction00aitclambafunction00Dza8qCodeImageUrifKbA8:
     NoEcho: "true"
