@@ -16,7 +16,7 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4.2
 
-      # Step 2: Run Super Linter on HTML/CSS/JSON Files
+      # Step 2: Run Super Linter 
       - name: Run Linter
         uses: github/super-linter@v7
         env:
