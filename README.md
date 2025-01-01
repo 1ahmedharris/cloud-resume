@@ -10,7 +10,7 @@ This project is my resume written in HTML and hosted with AWS S3 static website 
 
 
 ## **Technologies/Tools used**
-* Cloud: AWS, Route53, CloudFront CDN, S3, DynamoDB, Lamba, 
+* Cloud: AWS, Route53, CloudFront CDN, S3, DynamoDB, Lamba 
 * IaC: AWS CloudFormation
 * Version Control: Git
 * CI/CD: GitHub Actions
