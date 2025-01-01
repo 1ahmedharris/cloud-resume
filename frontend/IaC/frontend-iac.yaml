@@ -32,8 +32,6 @@ Resources:
 
 
 
-
----
 Metadata:
   AWSToolsMetrics:
     IaC_Generator: "arn:aws:cloudformation:us-east-1:941377150270:generatedTemplate/a67c4256-e996-4dc2-b0ea-1be5050731cd"
@@ -910,8 +908,6 @@ Resources:
 
 
 
-
----
 Metadata:
   AWSToolsMetrics:
     IaC_Generator: "arn:aws:cloudformation:us-east-1:941377150270:generatedTemplate/476d6e90-db34-4a7e-9dd2-e9476b0e0a11"
