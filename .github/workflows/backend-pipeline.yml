@@ -6,7 +6,7 @@ on:
     branches:
       - main
     paths:
-      - 'AWS-Cloud-Resume_challenge/backend/**'  # Only run on changes to files in 'my-resume/frontend'
+      - 'AWS-Cloud-Resume-Challenge/backend/**'  # Only run on changes to files in 'my-resume/frontend'
 
 jobs:
   build:
