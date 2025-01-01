@@ -1,0 +1,120 @@
+
+AWSTemplateFormatVersion: "2010-09-09"
+Description: "CloudFormation Backend Infrastructure"
+Parameters:
+  LambdaFunction00aitclambafunction00Dza8qCodeImageUrifKbA8:
+    NoEcho: "true"
+    Type: "String"
+    Description: "URI of a [container image](https://docs.aws.amazon.com/lambda/latest/dg/lambda-images.html)\
+      \ in the Amazon ECR registry."
+  LambdaFunction00aitclambafunction00Dza8qCodeSourceKMSKeyArnmh1TK:
+    NoEcho: "true"
+    Type: "String"
+    Description: "Value of write only property Code/SourceKMSKeyArn of resource LambdaFunction00aitclambafunction00Dza8q."
+  LambdaFunction00aitclambafunction00Dza8qCodeS3ObjectVersionjxS4p:
+    NoEcho: "true"
+    Type: "String"
+    Description: "For versioned objects, the version of the deployment package object\
+      \ to use."
+  LambdaFunction00aitclambafunction00Dza8qCodeZipFileeKQQI:
+    NoEcho: "true"
+    Type: "String"
+  LambdaFunction00aitclambafunction00Dza8qCodeS3Bucketureg3:
+    NoEcho: "true"
+    Type: "String"
+    Description: "An Amazon S3 bucket in the same AWS-Region as your function. The\
+      \ bucket can be in a different AWS-account."
+  LambdaFunction00aitclambafunction00Dza8qCodeS3KeyamOQb:
+    NoEcho: "true"
+    Type: "String"
+    Description: "The Amazon S3 key of the deployment package."
+Resources:
+  LambdaPermission00functionaitclambafunction00uAtqv:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::Lambda::Permission"
+    DeletionPolicy: "Retain"
+    Properties:
+      FunctionName:
+        Fn::GetAtt:
+        - "LambdaFunction00aitclambafunction00Dza8q"
+        - "Arn"
+      Action: "lambda:InvokeFunctionUrl"
+      FunctionUrlAuthType: "NONE"
+      Principal: "*"
+  LambdaFunction00aitclambafunction00Dza8q:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::Lambda::Function"
+    DeletionPolicy: "Retain"
+    Properties:
+      MemorySize: 128
+      Description: ""
+      TracingConfig:
+        Mode: "PassThrough"
+      Timeout: 3
+      RuntimeManagementConfig:
+        UpdateRuntimeOn: "Auto"
+      Handler: "lambda_function.lambda_handler"
+      Code:
+        SourceKMSKeyArn:
+          Ref: "LambdaFunction00aitclambafunction00Dza8qCodeSourceKMSKeyArnmh1TK"
+        S3ObjectVersion:
+          Ref: "LambdaFunction00aitclambafunction00Dza8qCodeS3ObjectVersionjxS4p"
+        S3Bucket:
+          Ref: "LambdaFunction00aitclambafunction00Dza8qCodeS3Bucketureg3"
+        ZipFile:
+          Ref: "LambdaFunction00aitclambafunction00Dza8qCodeZipFileeKQQI"
+        ImageUri:
+          Ref: "LambdaFunction00aitclambafunction00Dza8qCodeImageUrifKbA8"
+        S3Key:
+          Ref: "LambdaFunction00aitclambafunction00Dza8qCodeS3KeyamOQb"
+      Role:
+        Fn::GetAtt:
+        - "IAMRole00lambadynamodbrole00XGxz8"
+        - "Arn"
+      FileSystemConfigs: []
+      FunctionName: "aitc-lamba-function"
+      Runtime: "python3.13"
+      PackageType: "Zip"
+      LoggingConfig:
+        LogFormat: "Text"
+        LogGroup: "/aws/lambda/aitc-lamba-function"
+      RecursiveLoop: "Terminate"
+      EphemeralStorage:
+        Size: 512
+      Architectures:
+      - "x86_64"
+  IAMRole00lambadynamodbrole00XGxz8:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::IAM::Role"
+    DeletionPolicy: "Retain"
+    Properties:
+      Path: "/"
+      ManagedPolicyArns:
+      - "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+      - "arn:aws:iam::aws:policy/AmazonDynamoDBFullAccess"
+      MaxSessionDuration: 3600
+      RoleName: "lamba-dynamodb-role"
+      Description: "Allows Lambda functions to call AWS services on your behalf."
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+        - Action: "sts:AssumeRole"
+          Effect: "Allow"
+          Principal:
+            Service: "lambda.amazonaws.com"
+  LambdaUrl00functionaitclambafunction001Ya2F:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::Lambda::Url"
+    DeletionPolicy: "Retain"
+    Properties:
+      Qualifier: ""
+      InvokeMode: "BUFFERED"
+      AuthType: "NONE"
+      TargetFunctionArn: "aitc-lamba-function"
+      Cors:
+        AllowCredentials: false
+        AllowOrigins:
+        - "*"
+        ExposeHeaders: []
+        AllowMethods: []
+        AllowHeaders: []
