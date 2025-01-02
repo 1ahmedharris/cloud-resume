@@ -56,15 +56,7 @@ jobs:
         run: |
           aws deployment group create --resource-group <resource-group> --template-file AWS-Cloud-Resume-Challenge/backend/mainTemplate.json
 
-      # Step 5: Deploy Static Site to Storage Blob
-      - name: Deploy Static Site to Storage Blob
-        run: |
-          aws storage blob upload-batch \
-            --source ./site-files \
-            --destination '$web' \
-            --account-name ${{ account_name }}
-
-      # Step 6: Purge CloudFront CDN Endpoint
+      # Step 5: Purge CloudFront CDN Endpoint
       - name: Purge CDN Endpoint
         run: |
           aws cdn endpoint purge \
