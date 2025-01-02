@@ -32,9 +32,9 @@ Resources:
         - AttributeName: id
           KeyType: HASH
       BillingMode: PAY_PER_REQUEST
-
+      
+# Output for the Lambda Function
 Outputs:
-  # Output for the Lambda Function
   MyLambdaFunctionArn:
     Description: "ARN of the deployed Lambda function"
     Value: !GetAtt MyPythonFunction.Arn
